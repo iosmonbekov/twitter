@@ -7,7 +7,7 @@ axios.defaults.baseURL = "https://twitter-42eb0.firebaseio.com/";
 export default function Add() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-
+  const [flag , setFlag] = useState(true)
   const { id } = useParams();
 
   const history = useHistory();
@@ -16,33 +16,36 @@ export default function Add() {
     if (id) {
       request();
     }
-  }, [id]);
+  }, [id,]);
 
   const add = async () => {
-    const post = {
-      title: title,
-      text: description,
-      time:
-        new Date().getFullYear() +
-        "-" +
-        (new Date().getMonth() + 1) +
-        "-" +
-        new Date().getDate() +
-        " " +
-        new Date().getHours() +
-        ":" +
-        new Date().getMinutes() +
-        ":" +
-        new Date().getSeconds(),
-    };
-    setDescription("");
-    setTitle("");
-    if (id) {
-      await axios.put("posts/" + id + ".json", post);
-    } else {
-      await axios.post("posts.json", post);
+    if (description && title){
+      setFlag(false)
+      const post = {
+        title: title,
+        text: description,
+        time:
+          new Date().getFullYear() +
+          "-" +
+          (new Date().getMonth() + 1) +
+          "-" +
+          new Date().getDate() +
+          " " +
+          new Date().getHours() +
+          ":" +
+          new Date().getMinutes() +
+          ":" +
+          new Date().getSeconds(),
+      };
+      setDescription("");
+      setTitle("");
+      if (id) {
+        await axios.put("posts/" + id + ".json", post);
+      } else {
+        await axios.post("posts.json", post);
+      }
+      history.push("/");
     }
-    history.push("/");
   };
 
   const request = async () => {
@@ -52,30 +55,33 @@ export default function Add() {
   };
 
   return (
+    flag ? 
     <div className="add">
       <h2>{id ? "Edit Post" : "Add New Post"}</h2>
       <div>
-        <p>Title</p>
+        <p>Title:</p>
         <input
-          className="add__input"
+          className="add__input form-control"
           onChange={(e) => setTitle(e.target.value)}
           value={title}
         ></input>
       </div>
       <div>
-        <p>Description</p>
+        <p>Description:</p>
         <textarea
-          cols="55"
-          rows="10"
+          className='form-control text-area'
           onChange={(e) => setDescription(e.target.value)}
           value={description}
         ></textarea>
       </div>
       <div>
-        <button className="btn btn-secondary" onClick={add}>
+        <button className="btn btn-primary" onClick={add}>
           {id ? "Edit" : "Add"}
         </button>
       </div>
+    </div>:
+    <div className='loading'>
+      <div className="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
     </div>
   );
 }

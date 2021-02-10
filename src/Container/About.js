@@ -5,7 +5,7 @@ export default function About() {
     <div className="about">
       <h2>Islam Osmonbekov</h2>
       <p>
-        <b>Junior-Frontend Developer.</b>
+        <b>JavaScript React Developer.</b>
       </p>
       <div>
         <b>Skills:</b>
@@ -13,11 +13,10 @@ export default function About() {
           <li>HTML5</li>
           <li>CSS</li>
           <li>Bootstrap</li>
-          <li>Sass</li>
-          <li>Adaptive</li>
-          <li>Pure JS</li>
+          <li>Vanila JS</li>
           <li>React/Redux</li>
-          <li>BEM</li>
+          <li>Node JS</li>
+          <li>Express JS</li>
         </ul>
       </div>
     </div>

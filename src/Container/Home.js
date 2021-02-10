@@ -32,7 +32,8 @@ export default function Home() {
   };
   return (
     <div className="Home">
-      {posts.map((el) => {
+      { posts.length !== 0 ? 
+      posts.map((el) => {
         return (
           <Post
             title={el.title}
@@ -41,7 +42,10 @@ export default function Home() {
             click={() => goToPostInfo(el.id)}
           />
         );
-      })}
+      }):
+      <div className='loading'>
+        <div className="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+      </div>}
     </div>
   );
 }

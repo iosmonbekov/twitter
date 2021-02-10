@@ -28,6 +28,7 @@ export default function PostInfo() {
   };
 
   return (
+    post.length !== 0 ? 
     <div>
       {post.map((el, index) => {
         return <PostLook text={el.text} title={el.title} key={index} />;
@@ -41,5 +42,9 @@ export default function PostInfo() {
         </button>
       </div>
     </div>
-  );
+    :
+    <div className='loading'>
+        <div className="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+  )
 }

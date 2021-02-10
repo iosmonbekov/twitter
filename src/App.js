@@ -7,6 +7,7 @@ import Add from "./Container/Add";
 import About from "./Container/About";
 import Contacts from "./Container/Contacts";
 import PostInfo from "./Container/PostInfo";
+import Footer from "./Components/Footer";
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="/add/:id" exact component={Add} />
         </Switch>
       </div>
+      <Footer />
     </>
   );
 }
