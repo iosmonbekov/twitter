@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import axiosInstance from "../axiosInstance";
 import Loader from "../Components/Loader";
 import PostLook from "../Components/PostLook";
 
@@ -11,12 +10,8 @@ export default function PostInfo(props) {
         props.getOneArticle(id);
     }, [id]);
 
-    const goToPostEdit = (id) => {
-        history.push("/add/" + id);
-    };
-
     const remove = async (id) => {
-        await axiosInstance.delete("posts/" + id + ".json");
+        await props.deleteArticle(id);
         history.push("/");
     };
 
@@ -31,7 +26,7 @@ export default function PostInfo(props) {
                 </button>
                 <button
                     className="btn btn-warning"
-                    onClick={() => goToPostEdit(id)}
+                    onClick={() => history.push("/add/" + id)}
                 >
                     Edit
                 </button>

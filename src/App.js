@@ -2,12 +2,12 @@ import React from "react";
 import Header from "./Components/Header";
 import { Switch, Route } from "react-router-dom";
 import "./App.css";
-import Add from "./Container/Add";
 import About from "./Container/About";
 import Contacts from "./Container/Contacts";
 import Footer from "./Components/Footer";
 import HomeContainer from "./Container/HomeContainer";
 import PostInfoContainer from "./Container/PostInfoContainer";
+import AddContainer from "./Container/AddContainer";
 
 export default function App() {
     return (
@@ -16,8 +16,7 @@ export default function App() {
             <div className="container">
                 <Switch>
                     <Route path="/" exact component={HomeContainer} />
-                    <Route path="/add" exact component={Add} />
-                    <Route path="/add/:id" exact component={Add} />
+                    <Route path="/add/:id?" component={AddContainer} />
                     <Route
                         path="/post/:id"
                         exact

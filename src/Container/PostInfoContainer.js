@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import PostInfo from "./PostInfo";
-import { getOneArticle } from "../redux/homeReducer";
+import { getOneArticle, deleteArticle } from "../redux/homeReducer";
 
 const mapStateToProps = (state) => {
     return {
@@ -11,4 +11,5 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
     getOneArticle,
+    deleteArticle,
 })(PostInfo);

@@ -74,3 +74,9 @@ export const getOneArticle = (id) => (dispatch) => {
         }
     });
 };
+
+export const deleteArticle = (id) => async (dispatch) => {
+    dispatch(setLoader(false));
+    await axiosInstance.delete("posts/" + id + ".json");
+    await dispatch(setLoader(true));
+};
