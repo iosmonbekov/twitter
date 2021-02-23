@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Loader from "../Components/Loader";
-
 import Post from "../Components/Post";
 
 export default function Home(props) {

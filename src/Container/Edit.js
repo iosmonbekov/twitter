@@ -7,11 +7,10 @@ export default function Edit(props) {
 
     const history = useHistory();
 
-    console.log(props);
-    const add = async () => {
-        debugger;
-        await props.putArticle(id, props.article[0]);
-        await history.push("/");
+    const add = () => {
+        props.putArticle(id, props.article[0]).then(() => {
+            history.push("/");
+        });
     };
 
     useEffect(() => {

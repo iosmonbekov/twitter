@@ -10,9 +10,10 @@ export default function PostInfo(props) {
         props.getOneArticle(id);
     }, [id]);
 
-    const remove = async (id) => {
-        await props.deleteArticle(id);
-        history.push("/");
+    const remove = (id) => {
+        props.deleteArticle(id).then(() => {
+            history.push("/");
+        });
     };
 
     return props.isLoading ? (

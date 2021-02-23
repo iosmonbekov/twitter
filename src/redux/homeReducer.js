@@ -1,4 +1,4 @@
-import axiosInstance from "../axiosInstance";
+import { UserAPI } from "../axiosInstance";
 
 const SET_ARTICLES = "SET_ARTICLES";
 const TOGLE_LOADER = "TOGLE_LOADER";
@@ -51,7 +51,7 @@ export const setOneArticle = (payload) => ({
 
 export const getArticles = () => (dispatch) => {
     dispatch(setLoader(false));
-    axiosInstance.get("posts.json").then((response) => {
+    UserAPI.getArticles().then((response) => {
         if (response.data) {
             const articles = Object.keys(response.data).map((el) => {
                 return {
@@ -67,7 +67,7 @@ export const getArticles = () => (dispatch) => {
 
 export const getOneArticle = (id) => (dispatch) => {
     dispatch(setLoader(false));
-    axiosInstance.get("posts/" + id + ".json").then((response) => {
+    UserAPI.getAnArticle(id).then((response) => {
         if (response.data) {
             dispatch(setOneArticle(response.data));
             dispatch(setLoader(true));
@@ -75,8 +75,9 @@ export const getOneArticle = (id) => (dispatch) => {
     });
 };
 
-export const deleteArticle = (id) => async (dispatch) => {
+export const deleteArticle = (id) => (dispatch) => {
     dispatch(setLoader(false));
-    await axiosInstance.delete("posts/" + id + ".json");
-    await dispatch(setLoader(true));
+    return UserAPI.deleteAnArticle(id).then(() => {
+        dispatch(setLoader(true));
+    });
 };

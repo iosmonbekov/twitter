@@ -5,9 +5,10 @@ import Loader from "../Components/Loader";
 export default function Add(props) {
     const history = useHistory();
 
-    const add = async () => {
-        await props.postArticle(props.title, props.description);
-        history.push("/");
+    const add = () => {
+        props.postArticle(props.title, props.description).then(() => {
+            history.push("/");
+        });
     };
 
     return !props.isLoading ? (

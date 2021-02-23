@@ -1,4 +1,4 @@
-import axiosInstance from "../axiosInstance";
+import axiosInstance, { UserAPI } from "../axiosInstance";
 
 const SET_TITLE = "SET_TITLE";
 const SET_DESCRIPTION = "SET_DESCRIPTION";
@@ -75,9 +75,10 @@ export const setArticle = (payload) => ({
 export const editArticle = () => ({
     type: EDIT_ARTICLE,
 });
-//Thunk
 
-export const postArticle = (title, text) => async (dispatch) => {
+//Thunks
+
+export const postArticle = (title, text) => (dispatch) => {
     dispatch(changeLoading(true));
     const post = {
         title,
@@ -95,16 +96,16 @@ export const postArticle = (title, text) => async (dispatch) => {
             ":" +
             new Date().getSeconds(),
     };
-    await axiosInstance.post("posts.json", post);
-    dispatch(setTitle(""));
-    dispatch(setDescription(""));
-    await dispatch(changeLoading(false));
+    return UserAPI.postAnArticle(post).then(() => {
+        dispatch(setTitle(""));
+        dispatch(setDescription(""));
+        dispatch(changeLoading(false));
+    });
 };
 
 export const getArticle = (id) => (dispatch) => {
     dispatch(changeLoading(true));
-
-    axiosInstance.get("posts/" + id + ".json").then((response) => {
+    UserAPI.getAnArticle(id).then((response) => {
         if (response.data) {
             dispatch(setArticle(response.data));
             dispatch(setTitle(response.data.title));
@@ -114,11 +115,12 @@ export const getArticle = (id) => (dispatch) => {
     });
 };
 
-export const putArticle = (id, post) => async (dispatch) => {
+export const putArticle = (id, post) => (dispatch) => {
     dispatch(changeLoading(true));
     dispatch(editArticle());
     dispatch(setTitle(""));
     dispatch(setDescription(""));
-    await axiosInstance.put("posts/" + id + ".json", post);
-    await dispatch(changeLoading(false));
+    return UserAPI.putAnArticle(id, post).then(() => {
+        dispatch(changeLoading(false));
+    });
 };
